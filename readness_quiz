@@ -1,0 +1,220 @@
+Question 1
+For a given input list: 1, 2, 3, 4
+
+Cube (element to power 3) each element 
+Return the results as a list 
+
+def get_cubed(lst):
+  '''
+  INPUT: LIST (containing numeric elements)
+  OUTPUT: LIST (cubed value of each even number in originals list)
+  return a list containing each element cubed
+  '''
+  cubes = []
+  for number in lst:
+    cube = number*number*number
+    cubes.append(cube)
+  return cubes
+  
+_______________________________________________________________________
+
+Question 2
+For a given input list: 1,2,3,4,5,6,7
+
+Inspect each number in the input list and determine if it is even
+Next square the even values
+Finally return the squared evens in a list 
+
+def get_squared_evens(lst):
+    '''
+    INPUT: LIST (containing numeric elements)
+    OUTPUT: LIST (squared value of each even number in originals list)
+    return squared evens in a list
+    '''
+    squares = []
+    for num in lst:
+        if (num %2) == 0:
+            squared = num * num
+            squares.append(squared)
+    return squares
+    
+    
+________________________________________________________________________
+
+
+Question 4
+For given input lists:  a,b,c  and 1,2,3
+
+Create a dictionary from two input lists
+
+def make_dict(lst1,lst2):
+    '''
+    INPUT: LST1, LST2
+    OUTPUT: DICT (LST 1 are the keys and LST2 are the values)
+    Given equal length lists create a dictionary where the first list is the keys
+    '''
+    list = {}
+    for key, value in zip(lst1, lst2):
+        list[key] = value
+    return list
+    
+_________________________________________________________________________
+
+Question 7
+For a given input list: abbcccddddeeeeeffffffggggggghhhhhhhh
+
+Return a dictionary of character counts
+
+Count the number of times each character appears in the string
+Characters with a count of 0 should not be included in the output dictionary
+
+def count_characters(string):
+    '''
+    INPUT: STRING
+    OUTPUT: DICT (with counts of each character in input string)
+
+    Return a dictionary of character counts
+    '''
+    list_char = {}
+    for i in string:
+        if i in list_char:
+            list_char[i] += 1
+        else:
+            list_char[i] = 1
+    return list_char
+    
+    
+__________________________________________________________________________________
+
+Question 8
+For the vector v = [2.0, -3.5, 5.1]:
+
+Find the L1 norm of v
+Return the result as a float
+
+import numpy as np
+
+def calculate_l1_norm(v):
+  '''
+  INPUT: LIST or ARRAY (containing numeric elements)
+  OUTPUT: FLOAT (L1 norm of v)
+  calculate and return a norm for a given vector
+  '''
+  l1_norm = np.linalg.norm(v, 1)
+  return l1_norm
+  
+__________________________________________________________________________________
+
+Question 9
+NumPy array practice
+
+Create a vector that starts at 1 and increases until 150
+Turn the vector into a matrix with 10 rows and 15 columns
+Return the sums for the 10 rows as a list.  HINT: there should be ten values for the printed sum
+Use the following input vector values: vectorLower = 1; vectorUpper = 151
+
+
+import numpy as np
+
+def get_vector_sum(vectorLower, vectorUpper):
+  '''
+  INPUT: vector lower and upper bounds
+  OUTPUT: calculated value for vector sum
+  (1) create a vector ranging from 1:150
+  (2) transform the vector into a matrix with 10 rows and 15 columns
+  (3) print the sum for the 10 rows
+  '''
+  v = np.arange(vectorLower, vectorUpper)
+  s = v.reshape((10,15))
+  return np.sum(s,1)
+  
+  
+___________________________________________________________________________________
+
+Question 11
+Geometric distribution
+
+The geometric distribution is a useful tool for modeling time to event data.  A successful street vendor says that on average 1 out of every 10 people who walk by on the street stop to buy a taco.
+
+Represent these data with a geometric distribution
+What is the probability that the vendor has to wait until 20 people walk buy before someone buys a taco?
+
+import scipy.stats as stats
+
+def geometric_distribution(p,k):
+  '''
+  INPUT: probability of success and trials
+  OUTPUT: determined probability
+  '''
+  distrib = stats.geom.pmf(k, p)
+  return distrib
+  
+____________________________________________________________________________________
+
+
+Question 12
+Poisson distribution
+
+The Poisson distribution is a useful tool for modeling count data given discrete intervals. Based on historical data the expected number of accidents at a busy intersection is 4 per month.
+
+Represent these data with a Poisson distribution
+What is the probability of more than 7 accidents at that intersection next month?
+
+import scipy.stats as stats
+
+def poisson_distribution(mu,k):
+  '''
+  INPUT: parameter of the poisson distribution and number of accidents
+  OUTPUT: determined probability
+  '''
+  distrib = stats.poisson.sf(k, mu)
+  total = 1 - distrib
+  return total
+  
+________________________________________________________________________________________________________
+
+Question 13
+Gaussian distribution
+
+The Gaussian or Normal distribution is use heavily throughout statistics and data science. Lets assume scores for this assessment have a mean of 50% and a standard deviation of 20%.
+
+Represent these data with a Normal distribution
+What is the probability of observing a score >= 80?
+Use 50.0, 20.0, and 80 for your input values
+
+import scipy.stats as stats
+
+def gaussian_distribution(loc_val, scale_val, cdf_val):
+    '''
+    INPUT: loc (mean of the distribution), scale (standard deviation of the distribution), and cdf values
+    OUTPUT: determined probability
+    '''
+    probability_gauss = stats.norm(loc_val, scale_val).cdf(cdf_val)
+    total = 1 - probability_gauss
+    return total
+    
+__________________________________________________________________________________________________________________________
+
+Question 14
+Perform matrix multiplication on a square matrix HINT: A 2X2 matrix times a 2x2 matrix should yield a 2x2 matrix
+
+def matrix_multiplication(A,B):
+  '''
+  INPUT: LIST (of length n) OF LIST (of length n) OF INTEGERS
+  LIST (of length n) OF LIST (of length n) OF INTEGERS
+  OUTPUT: LIST OF LIST OF INTEGERS
+  (storing the product of a matrix multiplication operation)
+  Return the matrix which is the product of matrix A and matrix B
+  where A and B will be (a) integer valued (b) square matrices
+  (c) of size n-by-n (d) encoded as lists of lists, e.g.
+  A = [[2, 3, 4], [6, 4, 2], [-1, 2, 0]] corresponds to the matrix
+  | 2 3 4 |
+  | 6 4 2 |
+  |-1 2 0 |
+  You may not use numpy. Write your solution in straight python
+  '''
+  result = [[sum(a * b for a, b in zip(A_row, B_col)) 
+                        for B_col in zip(*B)]
+                                for A_row in A]
+
+  return (result)
